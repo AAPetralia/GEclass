@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>GEclass · Gestionale Classe</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%23F3F0E7%22%20stroke%3D%22%23DDD8C9%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2253%22%20font-family%3D%22Georgia%2Cserif%22%20font-weight%3D%22700%22%20font-size%3D%2237%22%20fill%3D%22%23C0403A%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%20letter-spacing%3D%22-1%22%3EGE%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F3F0E7;
+      --paper2: #FBFAF5;
+      --ink: #232B39;
+      --ink-soft: #6A7180;
+      --red: #C0403A;
+      --teal: #1C6E6A;
+      --amber: #B07A1E;
+      --rule: #DED8C6;
+      --rule-soft: #E9E4D6;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      padding-bottom: 78px;
+      max-width: 640px;
+      margin: 0 auto;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      padding: 18px 18px 12px;
+      border-bottom: 2px solid var(--ink);
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 100;
+    }
+    .wordmark {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .wordmark .sos {
+      color: var(--red);
+    }
+    .tagline {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+    main {
+      padding: 16px 14px;
+    }
+    h2.sec {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+      margin: 4px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h2.sec::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    h3 {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 600;
+      font-size: 15px;
+      margin: 16px 0 10px;
+      color: var(--ink);
+    }
+    nav {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    nav button {
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+      padding: 9px 10px;
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      background: var(--paper2);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font-family: 'Zilla Slab', serif;
+      transition: 0.12s;
+    }
+    nav button.on {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: inherit;
+      font-size: 16px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1.5px solid transparent;
+      background: var(--teal);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.12s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--teal);
+      border: 1.5px solid var(--teal);
+    }
+    .btn-mini {
+      padding: 8px 11px;
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      background: var(--paper2);
+      color: var(--ink-soft);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      transition: 0.12s;
+    }
+    .btn-mini.on {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+    .btn-mini.danger {
+      background: #F4DAD7;
+      color: var(--red);
+      border-color: #E3B7B2;
+    }
+    .answer {
+      background: var(--paper2);
+      border: 1.5px solid var(--rule);
+      border-left: 4px solid var(--teal);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 6px;
+    }
+    .answer .big {
+      font-family: 'Zilla Slab', serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .answer .sub {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+    .card {
+      background: var(--paper2);
+      border: 1.5px solid var(--rule);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #E4E9F1;
+      color: #2A3F5F;
+      font-size: 13px;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .chip.bes {
+      background: #FFE5CC;
+      color: #8B5A00;
+    }
+    .chip.bassa {
+      background: #FFE5CC;
+      color: #8B5A00;
+    }
+    .chip.media {
+      background: #E8E8E8;
+      color: #555;
+    }
+    .chip.alta {
+      background: #D4EDDA;
+      color: #155724;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .row-label {
+      min-width: 50px;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+    .row-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .hint {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-top: 6px;
+      font-style: italic;
+    }
+    .flag {
+      background: #F4DAD7;
+      border: 1px solid #E3B7B2;
+      border-radius: 9px;
+      padding: 10px 12px;
+      margin-top: 6px;
+      font-size: 13.5px;
+      color: #8A2F2A;
+    }
+    .empty {
+      text-align: center;
+      padding: 38px 20px;
+      color: var(--ink-soft);
+    }
+    .empty .ic {
+      font-family: 'Zilla Slab', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .student-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--rule-soft);
+      border-radius: 8px;
+      background: var(--paper2);
+      margin-bottom: 8px;
+    }
+    .student-id {
+      min-width: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Zilla Slab', serif;
+      color: var(--ink);
+    }
+    .student-info {
+      flex: 1;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .student-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .toggle-btn {
+      padding: 6px 10px;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      background: var(--paper2);
+      color: var(--ink-soft);
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.12s;
+      white-space: nowrap;
+    }
+    .toggle-btn.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+    .group-box {
+      background: var(--paper2);
+      border: 1.5px solid var(--rule);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .group-title {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--teal);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .group-member {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 15px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .group-member:last-child {
+      border-bottom: none;
+    }
+    .member-id {
+      font-weight: 700;
+      min-width: 40px;
+    }
+    .member-level {
+      font-size: 12px;
+      color: var(--ink-soft);
+      padding: 3px 8px;
+      background: var(--paper);
+      border-radius: 6px;
+      min-width: 50px;
+      text-align: center;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-top: 1px solid var(--rule-soft);
+      font-size: 14.5px;
+    }
+    .stats b {
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    const STORAGE_KEY = 'gestionale-classe-data';
+
+    const defaultData = {
+      classi: {},
+      extracted: {},
+      created: new Date().toISOString()
+    };
+
+    // Storage hooks
+    const useStorage = () => {
+      const [data, setData] = useState(defaultData);
+
+      useEffect(() => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try {
+            setData(JSON.parse(stored));
+          } catch (e) {
+            console.error('Storage error:', e);
+          }
+        }
+      }, []);
+
+      const saveData = useCallback((newData) => {
+        setData(newData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      }, []);
+
+      return [data, saveData];
+    };
+
+    // Main App
+    function App() {
+      const [data, saveData] = useStorage();
+      const [tab, setTab] = useState('classi');
+
+      return (
+        <>
+          <header>
+            <div className="wordmark"><span className="sos">GE</span>class</div>
+            <div className="tagline">Gestionale di classe</div>
+          </header>
+
+          <main>
+            <nav>
+              <button 
+                className={tab === 'classi' ? 'on' : ''}
+                onClick={() => setTab('classi')}
+              >
+                Classi
+              </button>
+              <button 
+                className={tab === 'estrazione' ? 'on' : ''}
+                onClick={() => setTab('estrazione')}
+              >
+                Estrazione
+              </button>
+              <button 
+                className={tab === 'gruppi' ? 'on' : ''}
+                onClick={() => setTab('gruppi')}
+              >
+                Gruppi
+              </button>
+            </nav>
+
+            {tab === 'classi' && <ClassiTab data={data} saveData={saveData} />}
+            {tab === 'estrazione' && <EstrazioneTab data={data} saveData={saveData} />}
+            {tab === 'gruppi' && <GruppiTab data={data} saveData={saveData} />}
+          </main>
+        </>
+      );
+    }
+
+    // CLASSI TAB
+    function ClassiTab({ data, saveData }) {
+      const [selectedClass, setSelectedClass] = useState(null);
+      const [showNew, setShowNew] = useState(false);
+      const [newClassName, setNewClassName] = useState('');
+      const [newClassSize, setNewClassSize] = useState('20');
+
+      const addClass = () => {
+        if (!newClassName.trim() || !newClassSize) return;
+        const classId = Date.now().toString();
+        const newData = {
+          ...data,
+          classi: {
+            ...data.classi,
+            [classId]: {
+              id: classId,
+              nome: newClassName,
+              size: parseInt(newClassSize),
+              students: Array.from({ length: parseInt(newClassSize) }, (_, i) => ({
+                id: i + 1,
+                bes: false,
+                livello: 'Media'
+              })),
+              createdAt: new Date().toISOString()
+            }
+          }
+        };
+        saveData(newData);
+        setNewClassName('');
+        setNewClassSize('20');
+        setShowNew(false);
+        setSelectedClass(classId);
+      };
+
+      const deleteClass = (classId) => {
+        const newData = { ...data };
+        delete newData.classi[classId];
+        saveData(newData);
+        setSelectedClass(null);
+      };
+
+      const updateStudent = (classId, studentId, updates) => {
+        const newData = { ...data };
+        const student = newData.classi[classId].students.find(s => s.id === studentId);
+        if (student) {
+          Object.assign(student, updates);
+        }
+        saveData(newData);
+      };
+
+      const classiList = Object.values(data.classi);
+
+      if (classiList.length === 0 && !showNew) {
+        return (
+          <>
+            <h2 className="sec">Classi</h2>
+            <div className="empty">
+              <div className="ic">📚</div>
+              <p>Nessuna classe ancora. Creane una per iniziare.</p>
+            </div>
+            <button className="btn" onClick={() => setShowNew(true)} style={{ width: '100%' }}>
+              Aggiungi prima classe
+            </button>
+          </>
+        );
+      }
+
+      return (
+        <>
+          <h2 className="sec">Classi</h2>
+
+          {showNew && (
+            <div className="answer">
+              <div className="field">
+                <label>Nome classe</label>
+                <input 
+                  type="text" 
+                  placeholder="es. 1A"
+                  value={newClassName}
+                  onChange={(e) => setNewClassName(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <label>Numero studenti</label>
+                <input 
+                  type="number" 
+                  value={newClassSize}
+                  onChange={(e) => setNewClassSize(e.target.value)}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button className="btn" onClick={addClass}>Crea</button>
+                <button className="btn ghost" onClick={() => setShowNew(false)}>Annulla</button>
+              </div>
+            </div>
+          )}
+
+          {!showNew && (
+            <button className="btn" onClick={() => setShowNew(true)} style={{ width: '100%', marginBottom: '14px' }}>
+              + Aggiungi classe
+            </button>
+          )}
+
+          {classiList.map(cls => (
+            <div key={cls.id} className="card">
+              <div className="card-header">
+                <div>
+                  <div style={{ fontSize: '16px', fontWeight: '700' }}>{cls.nome}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--ink-soft)' }}>{cls.size} studenti</div>
+                </div>
+                <button 
+                  className="btn-mini danger"
+                  onClick={() => deleteClass(cls.id)}
+                >
+                  Elimina
+                </button>
+              </div>
+
+              <div style={{ marginBottom: '10px' }}>
+                <button 
+                  className={selectedClass === cls.id ? 'btn-mini on' : 'btn-mini'}
+                  onClick={() => setSelectedClass(selectedClass === cls.id ? null : cls.id)}
+                >
+                  {selectedClass === cls.id ? '▼ Richiudi' : '▶ Modifica'}
+                </button>
+              </div>
+
+              {selectedClass === cls.id && (
+                <ClassStudentList 
+                  classData={cls} 
+                  onUpdateStudent={updateStudent}
+                />
+              )}
+            </div>
+          ))}
+        </>
+      );
+    }
+
+    function ClassStudentList({ classData, onUpdateStudent }) {
+      return (
+        <div style={{ borderTop: '1px solid var(--rule)', paddingTop: '12px' }}>
+          <h3 style={{ margin: '0 0 10px' }}>Studenti</h3>
+          {classData.students.map(student => (
+            <div key={student.id} className="student-row">
+              <div className="student-id">{student.id}</div>
+              <div className="student-info">
+                <select 
+                  value={student.livello}
+                  onChange={(e) => onUpdateStudent(classData.id, student.id, { livello: e.target.value })}
+                  style={{ padding: '6px 8px', fontSize: '13px', minWidth: '90px' }}
+                >
+                  <option value="Bassa">Bassa</option>
+                  <option value="Media">Media</option>
+                  <option value="Alta">Alta</option>
+                </select>
+              </div>
+              <div className="student-actions">
+                <button
+                  className={`toggle-btn ${student.bes ? 'active' : ''}`}
+                  onClick={() => onUpdateStudent(classData.id, student.id, { bes: !student.bes })}
+                >
+                  {student.bes ? '✓ BES' : 'BES'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // ESTRAZIONE TAB
+    function EstrazioneTab({ data, saveData }) {
+      const [selectedClass, setSelectedClass] = useState(null);
+      const [count, setCount] = useState('5');
+      const [extracted, setExtracted] = useState([]);
+
+      const classi = Object.values(data.classi);
+
+      const handleExtract = () => {
+        if (!selectedClass) return;
+        const cls = classi.find(c => c.id === selectedClass);
+        if (!cls) return;
+
+        const n = parseInt(count);
+        if (n > cls.students.length) {
+          alert('Non abbastanza studenti');
+          return;
+        }
+
+        const extracted_ids = data.extracted[selectedClass] || [];
+        // Filtra: esclude BES e già estratti
+        const available = cls.students.filter(s => !s.bes && !extracted_ids.includes(s.id));
+
+        if (available.length < n) {
+          alert(`Solo ${available.length} studenti disponibili (BES esonerati)`);
+          return;
+        }
+
+        const shuffled = [...available].sort(() => Math.random() - 0.5);
+        const selected = shuffled.slice(0, n).map(s => s.id);
+
+        const newData = {
+          ...data,
+          extracted: {
+            ...data.extracted,
+            [selectedClass]: [...extracted_ids, ...selected]
+          }
+        };
+        saveData(newData);
+        setExtracted(selected);
+      };
+
+      const resetExtracted = () => {
+        const newData = { ...data, extracted: { ...data.extracted, [selectedClass]: [] } };
+        saveData(newData);
+        setExtracted([]);
+      };
+
+      const cls = classi.find(c => c.id === selectedClass);
+      const extractedList = cls ? cls.students.filter(s => extracted.includes(s.id)) : [];
+      const totalExtracted = cls ? (data.extracted[selectedClass] || []).length : 0;
+
+      return (
+        <>
+          <h2 className="sec">Estrazione casuale</h2>
+          <p className="hint">Estrai studenti a caso. Quelli già estratti non verranno estratti di nuovo.</p>
+
+          {classi.length === 0 ? (
+            <div className="empty">
+              <p>Crea una classe prima</p>
+            </div>
+          ) : (
+            <>
+              <div className="field">
+                <label>Seleziona classe</label>
+                <select 
+                  value={selectedClass || ''}
+                  onChange={(e) => {
+                    setSelectedClass(e.target.value);
+                    setExtracted([]);
+                  }}
+                >
+                  <option value="">— scegli —</option>
+                  {classi.map(c => (
+                    <option key={c.id} value={c.id}>{c.nome} ({c.size} studenti)</option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedClass && cls && (
+                <>
+                  <div className="field">
+                    <label>Quanti studenti?</label>
+                    <input 
+                      type="number" 
+                      value={count}
+                      onChange={(e) => setCount(e.target.value)}
+                      min="1"
+                      max={cls.size}
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '10px', marginBottom: '14px' }}>
+                    <button className="btn" onClick={handleExtract}>Estrai</button>
+                    <button className="btn ghost" onClick={resetExtracted}>Reset estratti</button>
+                  </div>
+
+                  <div className="answer">
+                    <div className="big">Estratti ora: {extractedList.length}</div>
+                    <div className="sub">Totale estratti: {totalExtracted}</div>
+                  </div>
+
+                  {extractedList.length > 0 && (
+                    <div style={{ marginTop: '14px' }}>
+                      <h3 style={{ margin: '0 0 10px' }}>Questo giro</h3>
+                      {extractedList.map(student => (
+                        <div key={student.id} className="student-row" style={{ marginBottom: '6px' }}>
+                          <div className="student-id">{student.id}</div>
+                          <div className="student-info">
+                            {!student.bes && <span className={`chip ${student.livello.toLowerCase()}`}>{student.livello}</span>}
+                            {student.bes && <span className="chip bes">BES</span>}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </>
+      );
+    }
+
+    // GRUPPI TAB
+    function GruppiTab({ data, saveData }) {
+      const [selectedClass, setSelectedClass] = useState(null);
+      const [groupCount, setGroupCount] = useState('4');
+      const [groups, setGroups] = useState([]);
+
+      const classi = Object.values(data.classi);
+
+      const createGroups = () => {
+        if (!selectedClass) return;
+        const cls = classi.find(c => c.id === selectedClass);
+        if (!cls) return;
+
+        const n = parseInt(groupCount);
+        if (n < 1 || n > cls.students.length) return;
+
+        const students = [...cls.students].sort(() => Math.random() - 0.5);
+        const newGroups = Array.from({ length: n }, () => []);
+        
+        // Distribuzione bilanciata per livello
+        const byLevel = { Bassa: [], Media: [], Alta: [] };
+        students.forEach(s => byLevel[s.livello].push(s));
+
+        // Distribuire equamente
+        Object.values(byLevel).forEach(level => {
+          level.forEach((s, i) => {
+            newGroups[i % n].push(s);
+          });
+        });
+
+        setGroups(newGroups.filter(g => g.length > 0));
+      };
+
+      const cls = classi.find(c => c.id === selectedClass);
+
+      return (
+        <>
+          <h2 className="sec">Suddivisione in gruppi</h2>
+          <p className="hint">Dividi la classe in gruppi bilanciati per livello di competenza.</p>
+
+          {classi.length === 0 ? (
+            <div className="empty">
+              <p>Crea una classe prima</p>
+            </div>
+          ) : (
+            <>
+              <div className="field">
+                <label>Seleziona classe</label>
+                <select 
+                  value={selectedClass || ''}
+                  onChange={(e) => {
+                    setSelectedClass(e.target.value);
+                    setGroups([]);
+                  }}
+                >
+                  <option value="">— scegli —</option>
+                  {classi.map(c => (
+                    <option key={c.id} value={c.id}>{c.nome}</option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedClass && cls && (
+                <>
+                  <div className="field">
+                    <label>Numero gruppi</label>
+                    <input 
+                      type="number" 
+                      value={groupCount}
+                      onChange={(e) => setGroupCount(e.target.value)}
+                      min="1"
+                      max={cls.students.length}
+                    />
+                  </div>
+
+                  <button className="btn" onClick={createGroups} style={{ width: '100%', marginBottom: '14px' }}>
+                    Crea gruppi
+                  </button>
+
+                  {groups.length > 0 && (
+                    <div>
+                      {groups.map((group, idx) => (
+                        <div key={idx} className="group-box">
+                          <div className="group-title">Gruppo {idx + 1} ({group.length} studenti)</div>
+                          {group.map(student => (
+                            <div key={student.id} className="group-member">
+                              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                <span className="member-id">#{student.id}</span>
+                                {student.bes && <span className="chip bes">BES</span>}
+                              </div>
+                              {!student.bes && (
+                                <span className={`member-level ${student.livello.toLowerCase()}`}>
+                                  {student.livello}
+                                </span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </>
+      );
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('app'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
