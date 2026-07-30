@@ -1023,6 +1023,8 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
   <script type="text/babel">
     const { useState, useEffect, useCallback, useRef } = React;
@@ -1825,6 +1827,85 @@
       return d + '/' + m;
     };
 
+    const fmtFull = (dt) => {
+      return String(dt.getDate()).padStart(2, '0') + '/' +
+        String(dt.getMonth() + 1).padStart(2, '0') + '/' +
+        dt.getFullYear();
+    };
+
+    // --- EXPORT PDF ---
+    const getJsPDF = () => (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : null;
+
+    const exportRegistroPDF = (cls, regForClass) => {
+      const JsPDF = getJsPDF();
+      if (!JsPDF) { alert('Libreria PDF non ancora pronta. Attendi un istante e riprova.'); return; }
+      const doc = new JsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+      doc.text('GEclass \u2014 Registro', 14, 15);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      doc.text('Classe ' + cls.nome + '   \u00b7   generato il ' + fmtFull(new Date()), 14, 22);
+
+      const head = [['N\u00b0', 'MAT \u00b7 1', 'MAT \u00b7 2', 'MAT \u00b7 Nota', 'SCI \u00b7 1', 'SCI \u00b7 2', 'SCI \u00b7 Nota']];
+      const cell = (r, disc, slot) => {
+        const arr = (r[disc] && r[disc][slot]) || [];
+        return arr.map(fmtDate).join(', ');
+      };
+      const body = cls.students.map((s, i) => {
+        const r = (regForClass && regForClass[s.uid]) || {};
+        return [String(i + 1),
+          cell(r, 'mat', 'c1'), cell(r, 'mat', 'c2'), cell(r, 'mat', 'nota'),
+          cell(r, 'sci', 'c1'), cell(r, 'sci', 'c2'), cell(r, 'sci', 'nota')];
+      });
+
+      doc.autoTable({
+        head: head, body: body, startY: 27,
+        styles: { fontSize: 8, cellPadding: 2, valign: 'middle', lineColor: [222, 216, 198], lineWidth: 0.1 },
+        headStyles: { fillColor: [35, 43, 57], textColor: [243, 240, 231], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [251, 250, 245] },
+        columnStyles: { 0: { cellWidth: 12, halign: 'center', fontStyle: 'bold' } },
+        didParseCell: (d) => {
+          if (d.section === 'body' && (d.column.index === 3 || d.column.index === 6) && d.cell.text.join('')) {
+            d.cell.styles.textColor = [176, 42, 36];
+            d.cell.styles.fontStyle = 'bold';
+          }
+        }
+      });
+      doc.save('GEclass-registro-' + cls.nome + '.pdf');
+    };
+
+    const OUTCOME_WORD = { plus: 'Bene', mid: 'Cos\u00ec cos\u00ec', minus: 'Male', refused: 'Rifiuto' };
+
+    const exportLavagnaPDF = (cls, lavForClass) => {
+      const JsPDF = getJsPDF();
+      if (!JsPDF) { alert('Libreria PDF non ancora pronta. Attendi un istante e riprova.'); return; }
+      const doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const round = (lavForClass && lavForClass.round) || 1;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
+      doc.text('GEclass \u2014 Alla lavagna', 14, 15);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      doc.text('Classe ' + cls.nome + '   \u00b7   giro ' + round + '   \u00b7   generato il ' + fmtFull(new Date()), 14, 22);
+
+      const turns = (lavForClass && lavForClass.turns) || {};
+      const head = [['N\u00b0', 'Turni', 'Dettaglio (data \u00b7 esito)']];
+      const body = cls.students.map((s, i) => {
+        const t = turns[s.uid] || [];
+        const detail = t.map(x => fmtDate(x.date) + ' ' + (OUTCOME_WORD[x.outcome] || '')).join('    ');
+        return [String(i + 1), String(t.length), detail];
+      });
+
+      doc.autoTable({
+        head: head, body: body, startY: 27,
+        styles: { fontSize: 9, cellPadding: 2.5, valign: 'middle', lineColor: [222, 216, 198], lineWidth: 0.1 },
+        headStyles: { fillColor: [35, 43, 57], textColor: [243, 240, 231], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [251, 250, 245] },
+        columnStyles: {
+          0: { cellWidth: 14, halign: 'center', fontStyle: 'bold' },
+          1: { cellWidth: 16, halign: 'center' }
+        }
+      });
+      doc.save('GEclass-lavagna-' + cls.nome + '.pdf');
+    };
+
     function RegistroTab({ data, saveData }) {
       const [selectedClass, setSelectedClass] = useState(null);
       const [openStorico, setOpenStorico] = useState({});
@@ -1918,6 +1999,14 @@
                     <span><span className="reg-dot"></span> Check 1 · 2 (materiale/compiti)</span>
                     <span><span className="reg-dot nota"></span> Nota sul registro</span>
                   </div>
+
+                  <button
+                    className="btn ghost"
+                    onClick={() => exportRegistroPDF(cls, registro[selectedClass] || {})}
+                    style={{ width: '100%', marginBottom: '16px' }}
+                  >
+                    ↓ Esporta registro in PDF
+                  </button>
 
                   {cls.students.map((student, idx) => (
                     <div key={student.uid} className="reg-student">
@@ -2359,7 +2448,15 @@
                     </div>
                   )}
 
-                  <button className="btn ghost" onClick={resetLavagna} style={{ width: '100%', marginTop: '16px' }}>
+                  <button
+                    className="btn ghost"
+                    onClick={() => exportLavagnaPDF(cls, clav)}
+                    style={{ width: '100%', marginTop: '16px' }}
+                  >
+                    ↓ Esporta lavagna in PDF
+                  </button>
+
+                  <button className="btn ghost" onClick={resetLavagna} style={{ width: '100%', marginTop: '10px' }}>
                     Azzera percorso lavagna
                   </button>
                 </>
