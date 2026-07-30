@@ -520,7 +520,7 @@
       height: 17px;
       padding: 0 4px;
       border-radius: 9px;
-      background: var(--teal);
+      background: #C79A16;
       color: #fff;
       font-size: 10px;
       font-weight: 700;
@@ -529,11 +529,11 @@
       justify-content: center;
     }
     .reg-check.on {
-      background: #DCEBEA;
-      border-color: var(--teal);
+      background: #FBEB9C;
+      border-color: #E0C042;
     }
-    .reg-check.on .glyph { color: var(--teal); }
-    .reg-check.on .cdate { color: var(--teal); }
+    .reg-check.on .glyph { color: #7A5E05; }
+    .reg-check.on .cdate { color: #7A5E05; }
     .reg-check.nota .cbadge { background: var(--red); }
     .reg-check.nota.on {
       background: #F4DAD7;
@@ -611,8 +611,8 @@
       width: 12px;
       height: 12px;
       border-radius: 4px;
-      border: 1.5px solid var(--teal);
-      background: #DCEBEA;
+      border: 1.5px solid #E0BE45;
+      background: #FCF3CE;
     }
     .reg-dot.nota {
       border-color: var(--red);
@@ -824,13 +824,13 @@
       min-height: 24px;
     }
     .lav-outcomes {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 16px;
     }
     .lav-out-btn {
-      flex: 1;
-      padding: 14px 8px;
+      padding: 14px 6px;
       border-radius: 11px;
       border: 1.5px solid transparent;
       font-family: inherit;
@@ -844,22 +844,38 @@
       color: #14622E;
       border-color: #A6D8B4;
     }
+    .lav-out-btn.mid {
+      background: #FBEB9C;
+      color: #7A5E05;
+      border-color: #E0C042;
+    }
     .lav-out-btn.minus {
-      background: #FBE9CC;
-      color: #8B5A00;
-      border-color: #E6C88A;
+      background: #F7DBC4;
+      color: #9A4B00;
+      border-color: #E6B98A;
     }
     .lav-out-btn.refused {
       background: #F4DAD7;
       color: #B02A24;
       border-color: #E3B7B2;
     }
+    .lav-cancel {
+      display: block;
+      margin: 10px auto 0;
+      background: none;
+      border: none;
+      color: var(--ink-soft);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
     .lav-out-big {
-      font-size: 22px;
+      font-size: 20px;
       display: block;
     }
     .lav-out-sub {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       opacity: 0.85;
     }
@@ -937,7 +953,8 @@
       font-weight: 700;
     }
     .out-chip.plus { background:#D4EDDA; color:#14622E; }
-    .out-chip.minus { background:#FBE9CC; color:#8B5A00; }
+    .out-chip.mid { background:#FBEB9C; color:#7A5E05; }
+    .out-chip.minus { background:#F7DBC4; color:#9A4B00; }
     .out-chip.refused { background:#F4DAD7; color:#B02A24; }
     .lav-done-date {
       margin-left: auto;
@@ -990,7 +1007,8 @@
       font-weight: 700;
     }
     .hist-mark.plus { background:#D4EDDA; color:#14622E; }
-    .hist-mark.minus { background:#FBE9CC; color:#8B5A00; }
+    .hist-mark.mid { background:#FBEB9C; color:#7A5E05; }
+    .hist-mark.minus { background:#F7DBC4; color:#9A4B00; }
     .hist-mark.refused { background:#F4DAD7; color:#B02A24; }
     .lav-hist-count {
       margin-left: auto;
@@ -2071,17 +2089,24 @@
     }
 
     // ALLA LAVAGNA TAB
-    const OUTCOME_LABEL = { plus: 'Bene', minus: 'Male', refused: 'Rifiuto' };
-    const OUTCOME_GLYPH = { plus: '+', minus: '–', refused: '✕' };
+    const OUTCOME_LABEL = { plus: 'Bene', mid: 'Così così', minus: 'Male', refused: 'Rifiuto' };
+    const OUTCOME_GLYPH = { plus: '+', mid: '~', minus: '–', refused: '✕' };
 
     function LavagnaTab({ data, saveData }) {
       const [selectedClass, setSelectedClass] = useState(null);
       const [currentId, setCurrentId] = useState(null);
+      const [showOutcomes, setShowOutcomes] = useState(false);
       const [showHist, setShowHist] = useState(false);
 
       const classi = Object.values(data.classi);
       const cls = classi.find(c => c.id === selectedClass);
       const lavagna = data.lavagna || {};
+
+      // seleziona uno studente senza mostrare subito gli esiti
+      const selectStudent = (uid) => {
+        setCurrentId(uid);
+        setShowOutcomes(false);
+      };
 
       const getClassLav = () => {
         return lavagna[selectedClass] || { round: 1, doneThisRound: [], turns: {} };
@@ -2116,12 +2141,14 @@
         }
         saveData(newData);
         setCurrentId(null);
+        setShowOutcomes(false);
       };
 
       const pickRandom = () => {
         if (pending.length === 0) return;
         const pick = pending[Math.floor(Math.random() * pending.length)];
         setCurrentId(pick.uid);
+        setShowOutcomes(false);
         if (navigator.vibrate) navigator.vibrate(40);
       };
 
@@ -2211,20 +2238,45 @@
                     <div className="lav-current">
                       <div className="lav-current-label">Alla lavagna</div>
                       <div className="lav-current-id">{currentNum}</div>
-                      <div className="lav-outcomes">
-                        <button className="lav-out-btn plus" onClick={() => recordOutcome('plus')}>
-                          <span className="lav-out-big">+</span>
-                          <span className="lav-out-sub">Bene</span>
-                        </button>
-                        <button className="lav-out-btn minus" onClick={() => recordOutcome('minus')}>
-                          <span className="lav-out-big">–</span>
-                          <span className="lav-out-sub">Male</span>
-                        </button>
-                        <button className="lav-out-btn refused" onClick={() => recordOutcome('refused')}>
-                          <span className="lav-out-big">✕</span>
-                          <span className="lav-out-sub">Rifiuto</span>
-                        </button>
-                      </div>
+
+                      {!showOutcomes && (
+                        <>
+                          <button
+                            className="btn"
+                            onClick={() => setShowOutcomes(true)}
+                            style={{ width: '100%', marginTop: '16px' }}
+                          >
+                            Esito
+                          </button>
+                          <button
+                            className="lav-cancel"
+                            onClick={() => setCurrentId(null)}
+                          >
+                            ← scegli un altro
+                          </button>
+                        </>
+                      )}
+
+                      {showOutcomes && (
+                        <div className="lav-outcomes">
+                          <button className="lav-out-btn plus" onClick={() => recordOutcome('plus')}>
+                            <span className="lav-out-big">+</span>
+                            <span className="lav-out-sub">Bene</span>
+                          </button>
+                          <button className="lav-out-btn mid" onClick={() => recordOutcome('mid')}>
+                            <span className="lav-out-big">~</span>
+                            <span className="lav-out-sub">Così così</span>
+                          </button>
+                          <button className="lav-out-btn minus" onClick={() => recordOutcome('minus')}>
+                            <span className="lav-out-big">–</span>
+                            <span className="lav-out-sub">Male</span>
+                          </button>
+                          <button className="lav-out-btn refused" onClick={() => recordOutcome('refused')}>
+                            <span className="lav-out-big">✕</span>
+                            <span className="lav-out-sub">Rifiuto</span>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -2243,7 +2295,7 @@
                             <div 
                               key={s.uid}
                               className="lav-pending-pill"
-                              onClick={() => setCurrentId(s.uid)}
+                              onClick={() => selectStudent(s.uid)}
                             >
                               {num}
                             </div>
