@@ -358,6 +358,39 @@
       border-color: var(--teal);
       color: #fff;
     }
+    .rm-btn {
+      padding: 6px 10px;
+      border: 1.5px solid #E3B7B2;
+      border-radius: 8px;
+      background: #F4DAD7;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .ins-btn {
+      width: 100%;
+      padding: 8px;
+      border: 1.5px dashed var(--rule);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--teal);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .ins-btn.ins-inline {
+      opacity: 0.55;
+      margin: 4px 0 10px;
+      font-size: 11.5px;
+      padding: 5px;
+    }
+    .ins-btn.ins-inline:hover {
+      opacity: 1;
+      border-color: var(--teal);
+    }
     .group-box {
       background: var(--paper2);
       border: 1.5px solid var(--rule);
@@ -585,6 +618,386 @@
       border-color: var(--red);
       background: #F4DAD7;
     }
+
+    /* SLOT MACHINE ESTRAZIONE */
+    .slot-stage {
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 22px 18px 24px;
+      margin-top: 6px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(35,43,57,0.18);
+    }
+    .slot-progress {
+      font-family: 'Zilla Slab', serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9AA3B2;
+      margin-bottom: 14px;
+    }
+    .slot-window {
+      position: relative;
+      background: var(--paper);
+      border-radius: 14px;
+      margin: 0 auto 6px;
+      max-width: 240px;
+      padding: 18px 10px;
+      overflow: hidden;
+      border: 3px solid #3A4250;
+    }
+    .slot-window::before,
+    .slot-window::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 32px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .slot-window::before {
+      top: 0;
+      background: linear-gradient(to bottom, rgba(243,240,231,0.95), rgba(243,240,231,0));
+    }
+    .slot-window::after {
+      bottom: 0;
+      background: linear-gradient(to top, rgba(243,240,231,0.95), rgba(243,240,231,0));
+    }
+    .slot-number {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 82px;
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .slot-number.rolling {
+      color: var(--ink-soft);
+      opacity: 0.85;
+    }
+    .slot-number.landed {
+      color: var(--red);
+      animation: slotPop 0.4s ease;
+    }
+    @keyframes slotPop {
+      0% { transform: scale(0.6); opacity: 0.4; }
+      60% { transform: scale(1.14); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .slot-meta {
+      min-height: 30px;
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .slot-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .slot-btn {
+      padding: 13px 22px;
+      border-radius: 11px;
+      border: none;
+      background: var(--teal);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .slot-btn.sec {
+      background: transparent;
+      color: var(--paper);
+      border: 1.5px solid #4A5568;
+    }
+    .slot-btn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .slot-done-list {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .slot-done-chip {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--paper);
+      background: #384252;
+      border-radius: 8px;
+      padding: 4px 11px;
+    }
+    .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 14px;
+    }
+    .sound-toggle .box {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--rule);
+      border-radius: 5px;
+      background: var(--paper2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    /* ALLA LAVAGNA */
+    .lav-roundbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+    .lav-round-num {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .lav-round-prog {
+      font-size: 13px;
+      color: #B7BEC9;
+      font-weight: 600;
+    }
+    .lav-progress-track {
+      height: 8px;
+      background: var(--rule-soft);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .lav-progress-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+    .lav-current {
+      background: var(--paper2);
+      border: 1.5px solid var(--teal);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      animation: slotPop 0.35s ease;
+    }
+    .lav-current-id {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .lav-current-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .lav-current-meta {
+      margin-top: 8px;
+      min-height: 24px;
+    }
+    .lav-outcomes {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .lav-out-btn {
+      flex: 1;
+      padding: 14px 8px;
+      border-radius: 11px;
+      border: 1.5px solid transparent;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      line-height: 1.2;
+    }
+    .lav-out-btn.plus {
+      background: #D4EDDA;
+      color: #14622E;
+      border-color: #A6D8B4;
+    }
+    .lav-out-btn.minus {
+      background: #FBE9CC;
+      color: #8B5A00;
+      border-color: #E6C88A;
+    }
+    .lav-out-btn.refused {
+      background: #F4DAD7;
+      color: #B02A24;
+      border-color: #E3B7B2;
+    }
+    .lav-out-big {
+      font-size: 22px;
+      display: block;
+    }
+    .lav-out-sub {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+    .lav-section-label {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-soft);
+      margin: 18px 0 10px;
+    }
+    .lav-pending-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .lav-pending-pill {
+      min-width: 46px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      background: var(--paper2);
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.12s;
+    }
+    .lav-pending-pill:hover {
+      border-color: var(--teal);
+    }
+    .lav-pending-pill.selected {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #fff;
+    }
+    .lav-pending-pill .mini-bes {
+      font-size: 9px;
+      font-weight: 700;
+      background: #FFE5CC;
+      color: #8B5A00;
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    .lav-done-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border: 1px solid var(--rule-soft);
+      border-radius: 9px;
+      background: var(--paper2);
+      margin-bottom: 6px;
+    }
+    .lav-done-id {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 16px;
+      min-width: 34px;
+      color: var(--ink);
+    }
+    .out-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .out-chip.plus { background:#D4EDDA; color:#14622E; }
+    .out-chip.minus { background:#FBE9CC; color:#8B5A00; }
+    .out-chip.refused { background:#F4DAD7; color:#B02A24; }
+    .lav-done-date {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+    .lav-complete {
+      background: #DCEBEA;
+      border: 1.5px solid var(--teal);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .lav-complete .big {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--teal);
+    }
+    .lav-hist-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--rule-soft);
+      flex-wrap: wrap;
+    }
+    .lav-hist-row:last-child { border-bottom: none; }
+    .lav-hist-id {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 15px;
+      min-width: 30px;
+    }
+    .lav-hist-marks {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .hist-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .hist-mark.plus { background:#D4EDDA; color:#14622E; }
+    .hist-mark.minus { background:#FBE9CC; color:#8B5A00; }
+    .hist-mark.refused { background:#F4DAD7; color:#B02A24; }
+    .lav-hist-count {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -594,14 +1007,94 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    const { useState, useEffect, useCallback } = React;
+    const { useState, useEffect, useCallback, useRef } = React;
 
     const STORAGE_KEY = 'gestionale-classe-data';
 
     const defaultData = {
       classi: {},
       extracted: {},
+      registro: {},
+      lavagna: {},
       created: new Date().toISOString()
+    };
+
+    // Genera un id interno stabile e univoco per ogni studente
+    let uidCounter = 0;
+    const genUid = () => {
+      uidCounter += 1;
+      return 'u' + Date.now().toString(36) + '_' + uidCounter.toString(36) +
+        Math.random().toString(36).slice(2, 6);
+    };
+
+    // Migrazione: aggancia i dati a uid stabili invece che al numero di registro.
+    // Se i dati sono già migrati (studenti con uid) non cambia nulla.
+    const migrate = (raw) => {
+      if (!raw || typeof raw !== 'object') return defaultData;
+      const d = {
+        classi: raw.classi || {},
+        extracted: raw.extracted || {},
+        registro: raw.registro || {},
+        lavagna: raw.lavagna || {},
+        created: raw.created || new Date().toISOString()
+      };
+
+      Object.keys(d.classi).forEach(classId => {
+        const cls = d.classi[classId];
+        if (!cls.students) cls.students = [];
+
+        // Serve migrazione se qualche studente non ha uid
+        const needs = cls.students.some(s => !s.uid);
+        if (!needs) {
+          cls.size = cls.students.length;
+          return;
+        }
+
+        // Mappa vecchio numero di registro -> nuovo uid, mantenendo l'ordine
+        const oldToUid = {};
+        cls.students.forEach(s => {
+          const oldId = s.id;
+          if (!s.uid) s.uid = genUid();
+          if (oldId != null) oldToUid[oldId] = s.uid;
+          delete s.id;
+        });
+        cls.size = cls.students.length;
+
+        // extracted: array di vecchi numeri -> array di uid
+        if (Array.isArray(d.extracted[classId])) {
+          d.extracted[classId] = d.extracted[classId]
+            .map(oldId => oldToUid[oldId])
+            .filter(Boolean);
+        }
+
+        // registro: chiavi vecchio numero -> uid
+        if (d.registro[classId]) {
+          const newReg = {};
+          Object.keys(d.registro[classId]).forEach(oldId => {
+            const uid = oldToUid[oldId];
+            if (uid) newReg[uid] = d.registro[classId][oldId];
+          });
+          d.registro[classId] = newReg;
+        }
+
+        // lavagna: doneThisRound e turns
+        if (d.lavagna[classId]) {
+          const lv = d.lavagna[classId];
+          if (Array.isArray(lv.doneThisRound)) {
+            lv.doneThisRound = lv.doneThisRound.map(oldId => oldToUid[oldId]).filter(Boolean);
+          }
+          if (lv.turns) {
+            const newTurns = {};
+            Object.keys(lv.turns).forEach(oldId => {
+              const uid = oldToUid[oldId];
+              if (uid) newTurns[uid] = lv.turns[oldId];
+            });
+            lv.turns = newTurns;
+          }
+        }
+      });
+
+      return d;
     };
 
     // Storage hooks
@@ -612,7 +1105,9 @@
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
           try {
-            setData(JSON.parse(stored));
+            const migrated = migrate(JSON.parse(stored));
+            setData(migrated);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
           } catch (e) {
             console.error('Storage error:', e);
           }
@@ -672,12 +1167,26 @@
               >
                 Registro
               </button>
+              <button 
+                className={tab === 'lavagna' ? 'on' : ''}
+                onClick={() => setTab('lavagna')}
+              >
+                Alla lavagna
+              </button>
+              <button 
+                className={tab === 'backup' ? 'on' : ''}
+                onClick={() => setTab('backup')}
+              >
+                Backup
+              </button>
             </nav>
 
             {tab === 'classi' && <ClassiTab data={data} saveData={saveData} />}
             {tab === 'estrazione' && <EstrazioneTab data={data} saveData={saveData} />}
             {tab === 'gruppi' && <GruppiTab data={data} saveData={saveData} />}
             {tab === 'registro' && <RegistroTab data={data} saveData={saveData} />}
+            {tab === 'lavagna' && <LavagnaTab data={data} saveData={saveData} />}
+            {tab === 'backup' && <BackupTab data={data} saveData={saveData} />}
           </main>
         </>
       );
@@ -693,6 +1202,7 @@
       const addClass = () => {
         if (!newClassName.trim() || !newClassSize) return;
         const classId = Date.now().toString();
+        const n = parseInt(newClassSize);
         const newData = {
           ...data,
           classi: {
@@ -700,9 +1210,9 @@
             [classId]: {
               id: classId,
               nome: newClassName,
-              size: parseInt(newClassSize),
-              students: Array.from({ length: parseInt(newClassSize) }, (_, i) => ({
-                id: i + 1,
+              size: n,
+              students: Array.from({ length: n }, () => ({
+                uid: genUid(),
                 bes: false,
                 livello: 'Media'
               })),
@@ -724,11 +1234,43 @@
         setSelectedClass(null);
       };
 
-      const updateStudent = (classId, studentId, updates) => {
+      const updateStudent = (classId, uid, updates) => {
         const newData = { ...data };
-        const student = newData.classi[classId].students.find(s => s.id === studentId);
+        const student = newData.classi[classId].students.find(s => s.uid === uid);
         if (student) {
           Object.assign(student, updates);
+        }
+        saveData(newData);
+      };
+
+      // Inserisce un nuovo studente alla posizione indicata (0 = in cima).
+      // Tutti gli altri scalano il numero di registro, ma mantengono i loro dati (agganciati all'uid).
+      const insertStudent = (classId, position) => {
+        const newData = { ...data };
+        const cls = newData.classi[classId];
+        const nuovo = { uid: genUid(), bes: false, livello: 'Media' };
+        cls.students.splice(position, 0, nuovo);
+        cls.size = cls.students.length;
+        saveData(newData);
+      };
+
+      // Rimuove uno studente. Gli altri scalano, i loro dati restano intatti.
+      const removeStudent = (classId, uid) => {
+        const newData = { ...data };
+        const cls = newData.classi[classId];
+        cls.students = cls.students.filter(s => s.uid !== uid);
+        cls.size = cls.students.length;
+        // Pulisco i dati collegati a questo studente
+        if (newData.extracted[classId]) {
+          newData.extracted[classId] = newData.extracted[classId].filter(id => id !== uid);
+        }
+        if (newData.registro[classId]) {
+          delete newData.registro[classId][uid];
+        }
+        if (newData.lavagna[classId]) {
+          const lv = newData.lavagna[classId];
+          if (lv.doneThisRound) lv.doneThisRound = lv.doneThisRound.filter(id => id !== uid);
+          if (lv.turns) delete lv.turns[uid];
         }
         saveData(newData);
       };
@@ -814,6 +1356,8 @@
                 <ClassStudentList 
                   classData={cls} 
                   onUpdateStudent={updateStudent}
+                  onInsertStudent={insertStudent}
+                  onRemoveStudent={removeStudent}
                 />
               )}
             </div>
@@ -822,32 +1366,64 @@
       );
     }
 
-    function ClassStudentList({ classData, onUpdateStudent }) {
+    function ClassStudentList({ classData, onUpdateStudent, onInsertStudent, onRemoveStudent }) {
+      const confirmRemove = (uid, num) => {
+        if (window.confirm('Togliere lo studente n° ' + num + '? I numeri successivi scalano; i loro dati restano. I dati di questo studente vengono eliminati.')) {
+          onRemoveStudent(classData.id, uid);
+        }
+      };
+
       return (
         <div style={{ borderTop: '1px solid var(--rule)', paddingTop: '12px' }}>
-          <h3 style={{ margin: '0 0 10px' }}>Studenti</h3>
-          {classData.students.map(student => (
-            <div key={student.id} className="student-row">
-              <div className="student-id">{student.id}</div>
-              <div className="student-info">
-                <select 
-                  value={student.livello}
-                  onChange={(e) => onUpdateStudent(classData.id, student.id, { livello: e.target.value })}
-                  style={{ padding: '6px 8px', fontSize: '13px', minWidth: '90px' }}
-                >
-                  <option value="Bassa">Bassa</option>
-                  <option value="Media">Media</option>
-                  <option value="Alta">Alta</option>
-                </select>
+          <h3 style={{ margin: '0 0 4px' }}>Studenti</h3>
+          <p className="hint" style={{ marginTop: 0 }}>
+            Il numero è la posizione in elenco. Inserisci o togli uno studente: gli altri scalano da soli senza perdere i dati.
+          </p>
+
+          <button
+            className="ins-btn"
+            onClick={() => onInsertStudent(classData.id, 0)}
+          >
+            ＋ Inserisci in cima
+          </button>
+
+          {classData.students.map((student, idx) => (
+            <div key={student.uid}>
+              <div className="student-row">
+                <div className="student-id">{idx + 1}</div>
+                <div className="student-info">
+                  <select 
+                    value={student.livello}
+                    onChange={(e) => onUpdateStudent(classData.id, student.uid, { livello: e.target.value })}
+                    style={{ padding: '6px 8px', fontSize: '13px', minWidth: '90px' }}
+                  >
+                    <option value="Bassa">Bassa</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+                </div>
+                <div className="student-actions">
+                  <button
+                    className={`toggle-btn ${student.bes ? 'active' : ''}`}
+                    onClick={() => onUpdateStudent(classData.id, student.uid, { bes: !student.bes })}
+                  >
+                    {student.bes ? '✓ BES' : 'BES'}
+                  </button>
+                  <button
+                    className="rm-btn"
+                    onClick={() => confirmRemove(student.uid, idx + 1)}
+                    title="Togli studente"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div className="student-actions">
-                <button
-                  className={`toggle-btn ${student.bes ? 'active' : ''}`}
-                  onClick={() => onUpdateStudent(classData.id, student.id, { bes: !student.bes })}
-                >
-                  {student.bes ? '✓ BES' : 'BES'}
-                </button>
-              </div>
+              <button
+                className="ins-btn ins-inline"
+                onClick={() => onInsertStudent(classData.id, idx + 1)}
+              >
+                ＋ Inserisci sotto il n° {idx + 1}
+              </button>
             </div>
           ))}
         </div>
@@ -857,34 +1433,103 @@
     // ESTRAZIONE TAB
     function EstrazioneTab({ data, saveData }) {
       const [selectedClass, setSelectedClass] = useState(null);
-      const [count, setCount] = useState('5');
-      const [extracted, setExtracted] = useState([]);
+      const [count, setCount] = useState('1');
+      const [sound, setSound] = useState(true);
+
+      // Stato animazione: 'idle' | 'rolling' | 'revealed'
+      const [phase, setPhase] = useState('idle');
+      const [queue, setQueue] = useState([]);      // id da rivelare in ordine
+      const [current, setCurrent] = useState(0);   // indice corrente nella queue
+      const [display, setDisplay] = useState('?'); // numero mostrato nella slot
+
+      const timerRef = useRef(null);
+      const audioRef = useRef(null);
 
       const classi = Object.values(data.classi);
+      const cls = classi.find(c => c.id === selectedClass);
 
-      const handleExtract = () => {
-        if (!selectedClass) return;
-        const cls = classi.find(c => c.id === selectedClass);
-        if (!cls) return;
-
-        const n = parseInt(count);
-        if (n > cls.students.length) {
-          alert('Non abbastanza studenti');
-          return;
+      // --- AUDIO (sintetizzato, nessun file esterno) ---
+      const getCtx = () => {
+        if (!audioRef.current) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) audioRef.current = new AC();
         }
+        return audioRef.current;
+      };
+      const playTick = () => {
+        if (!sound) return;
+        const ctx = getCtx();
+        if (!ctx) return;
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'square';
+        o.frequency.value = 850 + Math.random() * 250;
+        g.gain.setValueAtTime(0.05, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + 0.05);
+      };
+      const playDing = () => {
+        if (!sound) return;
+        const ctx = getCtx();
+        if (!ctx) return;
+        [880, 1320].forEach((f) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = 'sine';
+          o.frequency.value = f;
+          const t = ctx.currentTime;
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(0.22, t + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(t); o.stop(t + 0.55);
+        });
+      };
+
+      // Pulizia timer
+      useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+
+      // --- ROLL slot machine verso un target (uid) ---
+      const rollTo = (targetUid) => {
+        const allNums = cls.students.map((s, i) => i + 1);
+        const targetNum = cls.students.findIndex(s => s.uid === targetUid) + 1;
+        setPhase('rolling');
+        let delay = 45;
+        const step = () => {
+          const rnd = allNums[Math.floor(Math.random() * allNums.length)];
+          setDisplay(rnd);
+          playTick();
+          delay *= 1.13;
+          if (delay < 300) {
+            timerRef.current = setTimeout(step, delay);
+          } else {
+            setDisplay(targetNum);
+            playDing();
+            if (navigator.vibrate) navigator.vibrate(60);
+            setPhase('revealed');
+          }
+        };
+        step();
+      };
+
+      const startExtraction = () => {
+        if (!selectedClass || !cls) return;
+        const n = parseInt(count);
+        if (!n || n < 1) return;
 
         const extracted_ids = data.extracted[selectedClass] || [];
-        // Filtra: esclude BES e già estratti
-        const available = cls.students.filter(s => !s.bes && !extracted_ids.includes(s.id));
+        const available = cls.students.filter(s => !s.bes && !extracted_ids.includes(s.uid));
 
         if (available.length < n) {
-          alert(`Solo ${available.length} studenti disponibili (BES esonerati)`);
+          alert('Solo ' + available.length + ' studenti disponibili (BES esonerati, già estratti esclusi)');
           return;
         }
 
         const shuffled = [...available].sort(() => Math.random() - 0.5);
-        const selected = shuffled.slice(0, n).map(s => s.id);
+        const selected = shuffled.slice(0, n).map(s => s.uid);
 
+        // Registra subito gli estratti
         const newData = {
           ...data,
           extracted: {
@@ -893,23 +1538,52 @@
           }
         };
         saveData(newData);
-        setExtracted(selected);
+
+        // Sblocca l'audio (gesto utente)
+        const ctx = getCtx();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+
+        setQueue(selected);
+        setCurrent(0);
+        rollTo(selected[0]);
+      };
+
+      const nextReveal = () => {
+        const ctx = getCtx();
+        if (ctx && ctx.state === 'suspended') ctx.resume();
+        const nextIdx = current + 1;
+        setCurrent(nextIdx);
+        rollTo(queue[nextIdx]);
+      };
+
+      const finish = () => {
+        setPhase('idle');
+        setQueue([]);
+        setCurrent(0);
+        setDisplay('?');
       };
 
       const resetExtracted = () => {
+        if (!window.confirm('Azzerare tutti gli estratti di questa classe? Torneranno tutti sorteggiabili.')) return;
         const newData = { ...data, extracted: { ...data.extracted, [selectedClass]: [] } };
         saveData(newData);
-        setExtracted([]);
       };
 
-      const cls = classi.find(c => c.id === selectedClass);
-      const extractedList = cls ? cls.students.filter(s => extracted.includes(s.id)) : [];
+      const currentStudent = cls && queue.length > 0
+        ? cls.students.find(s => s.uid === queue[current])
+        : null;
+
       const totalExtracted = cls ? (data.extracted[selectedClass] || []).length : 0;
+      const remaining = cls
+        ? cls.students.filter(s => !s.bes && !(data.extracted[selectedClass] || []).includes(s.uid)).length
+        : 0;
+
+      const inAnimation = phase !== 'idle';
 
       return (
         <>
           <h2 className="sec">Estrazione casuale</h2>
-          <p className="hint">Estrai studenti a caso. Quelli già estratti non verranno estratti di nuovo.</p>
+          <p className="hint">Slot machine per le interrogazioni. Gli studenti BES sono esonerati e chi è già stato estratto non riesce di nuovo.</p>
 
           {classi.length === 0 ? (
             <div className="empty">
@@ -917,60 +1591,91 @@
             </div>
           ) : (
             <>
-              <div className="field">
-                <label>Seleziona classe</label>
-                <select 
-                  value={selectedClass || ''}
-                  onChange={(e) => {
-                    setSelectedClass(e.target.value);
-                    setExtracted([]);
-                  }}
-                >
-                  <option value="">— scegli —</option>
-                  {classi.map(c => (
-                    <option key={c.id} value={c.id}>{c.nome} ({c.size} studenti)</option>
-                  ))}
-                </select>
-              </div>
-
-              {selectedClass && cls && (
+              {!inAnimation && (
                 <>
                   <div className="field">
-                    <label>Quanti studenti?</label>
-                    <input 
-                      type="number" 
-                      value={count}
-                      onChange={(e) => setCount(e.target.value)}
-                      min="1"
-                      max={cls.size}
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '10px', marginBottom: '14px' }}>
-                    <button className="btn" onClick={handleExtract}>Estrai</button>
-                    <button className="btn ghost" onClick={resetExtracted}>Reset estratti</button>
-                  </div>
-
-                  <div className="answer">
-                    <div className="big">Estratti ora: {extractedList.length}</div>
-                    <div className="sub">Totale estratti: {totalExtracted}</div>
-                  </div>
-
-                  {extractedList.length > 0 && (
-                    <div style={{ marginTop: '14px' }}>
-                      <h3 style={{ margin: '0 0 10px' }}>Questo giro</h3>
-                      {extractedList.map(student => (
-                        <div key={student.id} className="student-row" style={{ marginBottom: '6px' }}>
-                          <div className="student-id">{student.id}</div>
-                          <div className="student-info">
-                            {!student.bes && <span className={`chip ${student.livello.toLowerCase()}`}>{student.livello}</span>}
-                            {student.bes && <span className="chip bes">BES</span>}
-                          </div>
-                        </div>
+                    <label>Seleziona classe</label>
+                    <select 
+                      value={selectedClass || ''}
+                      onChange={(e) => setSelectedClass(e.target.value)}
+                    >
+                      <option value="">— scegli —</option>
+                      {classi.map(c => (
+                        <option key={c.id} value={c.id}>{c.nome} ({c.size} studenti)</option>
                       ))}
-                    </div>
+                    </select>
+                  </div>
+
+                  {selectedClass && cls && (
+                    <>
+                      <div className="field">
+                        <label>Quanti studenti?</label>
+                        <input 
+                          type="number" 
+                          value={count}
+                          onChange={(e) => setCount(e.target.value)}
+                          min="1"
+                          max={remaining}
+                        />
+                      </div>
+
+                      <label className="sound-toggle" onClick={() => setSound(!sound)}>
+                        <span className="box">{sound ? '♪' : ''}</span>
+                        Effetti sonori {sound ? 'attivi' : 'spenti'}
+                      </label>
+
+                      <button className="btn" onClick={startExtraction} style={{ width: '100%', marginBottom: '14px' }}>
+                        🎲 Estrai
+                      </button>
+
+                      <div className="answer">
+                        <div className="big">{remaining} sorteggiabili</div>
+                        <div className="sub">Già estratti: {totalExtracted}</div>
+                      </div>
+
+                      {totalExtracted > 0 && (
+                        <button className="btn ghost" onClick={resetExtracted} style={{ width: '100%', marginTop: '12px' }}>
+                          Azzera estratti
+                        </button>
+                      )}
+                    </>
                   )}
                 </>
+              )}
+
+              {inAnimation && (
+                <div className="slot-stage">
+                  <div className="slot-progress">
+                    Estrazione {current + 1} di {queue.length}
+                  </div>
+
+                  <div className="slot-window">
+                    <div className={'slot-number ' + (phase === 'rolling' ? 'rolling' : 'landed')}>
+                      {display}
+                    </div>
+                  </div>
+
+                  <div className="slot-actions">
+                    {phase === 'rolling' && (
+                      <button className="slot-btn" disabled>Estrazione…</button>
+                    )}
+                    {phase === 'revealed' && current < queue.length - 1 && (
+                      <button className="slot-btn" onClick={nextReveal}>Prossimo →</button>
+                    )}
+                    {phase === 'revealed' && current >= queue.length - 1 && (
+                      <button className="slot-btn" onClick={finish}>Fine ✓</button>
+                    )}
+                  </div>
+
+                  {queue.length > 1 && (
+                    <div className="slot-done-list">
+                      {queue.slice(0, current + (phase === 'revealed' ? 1 : 0)).map(uid => {
+                        const num = cls.students.findIndex(s => s.uid === uid) + 1;
+                        return <span key={uid} className="slot-done-chip">{num}</span>;
+                      })}
+                    </div>
+                  )}
+                </div>
               )}
             </>
           )}
@@ -1062,19 +1767,16 @@
                       {groups.map((group, idx) => (
                         <div key={idx} className="group-box">
                           <div className="group-title">Gruppo {idx + 1} ({group.length} studenti)</div>
-                          {group.map(student => (
-                            <div key={student.id} className="group-member">
-                              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                <span className="member-id">#{student.id}</span>
-                                {student.bes && <span className="chip bes">BES</span>}
+                          {group.map(student => {
+                            const num = cls.students.findIndex(s => s.uid === student.uid) + 1;
+                            return (
+                              <div key={student.uid} className="group-member">
+                                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                  <span className="member-id">#{num}</span>
+                                </div>
                               </div>
-                              {!student.bes && (
-                                <span className={`member-level ${student.livello.toLowerCase()}`}>
-                                  {student.livello}
-                                </span>
-                              )}
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       ))}
                     </div>
@@ -1199,11 +1901,10 @@
                     <span><span className="reg-dot nota"></span> Nota sul registro</span>
                   </div>
 
-                  {cls.students.map(student => (
-                    <div key={student.id} className="reg-student">
+                  {cls.students.map((student, idx) => (
+                    <div key={student.uid} className="reg-student">
                       <div className="reg-head">
-                        <span className="reg-id">{student.id}</span>
-                        {student.bes && <span className="chip bes">BES</span>}
+                        <span className="reg-id">{idx + 1}</span>
                       </div>
 
                       {DISCIPLINE.map(disc => (
@@ -1211,15 +1912,15 @@
                           <span className="reg-disc-label">{DISC_LABEL[disc]}</span>
                           <div className="reg-checks">
                             {SLOTS.map(slot => {
-                              const dates = getSlot(student.id, disc, slot);
-                              const on = isTodayOn(student.id, disc, slot);
+                              const dates = getSlot(student.uid, disc, slot);
+                              const on = isTodayOn(student.uid, disc, slot);
                               const isNota = slot === 'nota';
                               const lastDate = dates.length > 0 ? fmtDate(dates[dates.length - 1]) : null;
                               return (
                                 <div
                                   key={slot}
                                   className={`reg-check ${isNota ? 'nota' : ''} ${on ? 'on' : ''}`}
-                                  onClick={() => toggleToday(student.id, disc, slot)}
+                                  onClick={() => toggleToday(student.uid, disc, slot)}
                                 >
                                   <span className="glyph">{isNota ? '!' : (dates.length > 0 ? '✓' : '·')}</span>
                                   {lastDate && <span className="cdate">{lastDate}</span>}
@@ -1231,20 +1932,20 @@
                         </div>
                       ))}
 
-                      {hasAnyDates(student.id) && (
+                      {hasAnyDates(student.uid) && (
                         <>
                           <button 
                             className="reg-storico-btn"
-                            onClick={() => toggleStorico(student.id)}
+                            onClick={() => toggleStorico(student.uid)}
                           >
-                            {openStorico[student.id] ? '▲ Nascondi storico' : '▼ Storico date'}
+                            {openStorico[student.uid] ? '▲ Nascondi storico' : '▼ Storico date'}
                           </button>
 
-                          {openStorico[student.id] && (
+                          {openStorico[student.uid] && (
                             <div className="reg-storico">
                               {DISCIPLINE.map(disc =>
                                 SLOTS.map(slot => {
-                                  const dates = getSlot(student.id, disc, slot);
+                                  const dates = getSlot(student.uid, disc, slot);
                                   if (dates.length === 0) return null;
                                   const isNota = slot === 'nota';
                                   return (
@@ -1255,7 +1956,7 @@
                                           {fmtDate(iso)}
                                           <span 
                                             className="x"
-                                            onClick={() => removeDate(student.id, disc, slot, iso)}
+                                            onClick={() => removeDate(student.uid, disc, slot, iso)}
                                           >×</span>
                                         </span>
                                       ))}
@@ -1269,6 +1970,346 @@
                       )}
                     </div>
                   ))}
+                </>
+              )}
+            </>
+          )}
+        </>
+      );
+    }
+
+    // BACKUP TAB
+    function BackupTab({ data, saveData }) {
+      const [msg, setMsg] = useState(null);
+
+      const numClassi = Object.keys(data.classi || {}).length;
+      const numStudenti = Object.values(data.classi || {}).reduce((sum, c) => sum + (c.students ? c.students.length : 0), 0);
+
+      const exportData = () => {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const d = new Date();
+        const stamp = d.getFullYear() +
+          String(d.getMonth() + 1).padStart(2, '0') +
+          String(d.getDate()).padStart(2, '0');
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'geclass-backup-' + stamp + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setMsg({ ok: true, text: 'Backup esportato correttamente' });
+      };
+
+      const importData = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const parsed = JSON.parse(ev.target.result);
+            if (!parsed || typeof parsed !== 'object' || !('classi' in parsed)) {
+              setMsg({ ok: false, text: 'File non valido: non è un backup di GEclass' });
+              return;
+            }
+            const nc = Object.keys(parsed.classi || {}).length;
+            if (!window.confirm('Importare ' + nc + ' classe/i? I dati attuali su questo dispositivo verranno sostituiti.')) {
+              return;
+            }
+            const merged = migrate(parsed);
+            saveData(merged);
+            setMsg({ ok: true, text: 'Dati importati correttamente' });
+          } catch (err) {
+            setMsg({ ok: false, text: 'Errore nella lettura del file' });
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      };
+
+      return (
+        <>
+          <h2 className="sec">Backup</h2>
+          <p className="hint">Sposta i tuoi dati tra telefono, tablet e PC. Esporta un file dal dispositivo con i dati aggiornati, poi importalo sull'altro.</p>
+
+          <div className="answer" style={{ marginBottom: '16px' }}>
+            <div className="big">{numClassi} classi · {numStudenti} studenti</div>
+            <div className="sub">Dati salvati su questo dispositivo</div>
+          </div>
+
+          <h3>Esporta</h3>
+          <p className="hint" style={{ marginTop: 0 }}>Scarica un file con tutti i dati (classi, livelli, BES, registro, estrazioni).</p>
+          <button className="btn" onClick={exportData} style={{ width: '100%', marginBottom: '18px' }}>
+            ↓ Esporta backup
+          </button>
+
+          <h3>Importa</h3>
+          <p className="hint" style={{ marginTop: 0 }}>Carica un file di backup. Attenzione: sostituisce i dati presenti su questo dispositivo.</p>
+          <input
+            type="file"
+            accept="application/json,.json"
+            onChange={importData}
+            id="importFileInput"
+            style={{ display: 'none' }}
+          />
+          <label htmlFor="importFileInput" className="btn ghost" style={{ display: 'block', width: '100%', textAlign: 'center', cursor: 'pointer', boxSizing: 'border-box' }}>
+            ↑ Importa backup
+          </label>
+
+          {msg && (
+            <div className={msg.ok ? 'answer' : 'flag'} style={{ marginTop: '16px' }}>
+              {msg.ok ? '✓ ' : '✗ '}{msg.text}
+            </div>
+          )}
+
+          <p className="hint" style={{ marginTop: '20px' }}>
+            Consiglio: dopo una lezione, esporta dal dispositivo che hai usato. Prima di lavorare su un altro dispositivo, importa l'ultimo file. Così hai sempre i dati aggiornati.
+          </p>
+        </>
+      );
+    }
+
+    // ALLA LAVAGNA TAB
+    const OUTCOME_LABEL = { plus: 'Bene', minus: 'Male', refused: 'Rifiuto' };
+    const OUTCOME_GLYPH = { plus: '+', minus: '–', refused: '✕' };
+
+    function LavagnaTab({ data, saveData }) {
+      const [selectedClass, setSelectedClass] = useState(null);
+      const [currentId, setCurrentId] = useState(null);
+      const [showHist, setShowHist] = useState(false);
+
+      const classi = Object.values(data.classi);
+      const cls = classi.find(c => c.id === selectedClass);
+      const lavagna = data.lavagna || {};
+
+      const getClassLav = () => {
+        return lavagna[selectedClass] || { round: 1, doneThisRound: [], turns: {} };
+      };
+
+      const clav = getClassLav();
+      const total = cls ? cls.students.length : 0;
+      const done = clav.doneThisRound || [];
+      const pending = cls ? cls.students.filter(s => !done.includes(s.uid)) : [];
+      const roundComplete = cls && total > 0 && done.length >= total;
+
+      const ensureLav = (nd) => {
+        if (!nd.lavagna) nd.lavagna = {};
+        if (!nd.lavagna[selectedClass]) {
+          nd.lavagna[selectedClass] = { round: 1, doneThisRound: [], turns: {} };
+        }
+        return nd.lavagna[selectedClass];
+      };
+
+      const recordOutcome = (outcome) => {
+        if (!currentId) return;
+        const newData = { ...data };
+        const cl = ensureLav(newData);
+        if (!cl.turns[currentId]) cl.turns[currentId] = [];
+        cl.turns[currentId].push({
+          date: todayISO(),
+          outcome: outcome,
+          round: cl.round
+        });
+        if (!cl.doneThisRound.includes(currentId)) {
+          cl.doneThisRound.push(currentId);
+        }
+        saveData(newData);
+        setCurrentId(null);
+      };
+
+      const pickRandom = () => {
+        if (pending.length === 0) return;
+        const pick = pending[Math.floor(Math.random() * pending.length)];
+        setCurrentId(pick.uid);
+        if (navigator.vibrate) navigator.vibrate(40);
+      };
+
+      const startNextRound = () => {
+        const newData = { ...data };
+        const cl = ensureLav(newData);
+        cl.round = (cl.round || 1) + 1;
+        cl.doneThisRound = [];
+        saveData(newData);
+        setCurrentId(null);
+      };
+
+      const resetLavagna = () => {
+        if (!window.confirm('Azzerare tutto il percorso alla lavagna di questa classe (giri e storico)?')) return;
+        const newData = { ...data };
+        if (!newData.lavagna) newData.lavagna = {};
+        newData.lavagna[selectedClass] = { round: 1, doneThisRound: [], turns: {} };
+        saveData(newData);
+        setCurrentId(null);
+      };
+
+      const currentStudent = cls && currentId != null
+        ? cls.students.find(s => s.uid === currentId) : null;
+      const currentNum = currentStudent
+        ? cls.students.findIndex(s => s.uid === currentStudent.uid) + 1 : null;
+
+      // ultimo esito del giro corrente per uno studente
+      const lastTurnThisRound = (studentId) => {
+        const turns = (clav.turns && clav.turns[studentId]) || [];
+        for (let i = turns.length - 1; i >= 0; i--) {
+          if (turns[i].round === clav.round) return turns[i];
+        }
+        return null;
+      };
+
+      return (
+        <>
+          <h2 className="sec">Alla lavagna</h2>
+          <p className="hint">Ogni studente fa il suo turno prima che qualcuno ci torni. Segna l'esito o il rifiuto: la data viene registrata.</p>
+
+          {classi.length === 0 ? (
+            <div className="empty">
+              <p>Crea una classe prima</p>
+            </div>
+          ) : (
+            <>
+              <div className="field">
+                <label>Seleziona classe</label>
+                <select 
+                  value={selectedClass || ''}
+                  onChange={(e) => {
+                    setSelectedClass(e.target.value);
+                    setCurrentId(null);
+                    setShowHist(false);
+                  }}
+                >
+                  <option value="">— scegli —</option>
+                  {classi.map(c => (
+                    <option key={c.id} value={c.id}>{c.nome} ({c.size} studenti)</option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedClass && cls && (
+                <>
+                  <div className="lav-roundbar">
+                    <span className="lav-round-num">Giro {clav.round}</span>
+                    <span className="lav-round-prog">{done.length} / {total} fatti</span>
+                  </div>
+                  <div className="lav-progress-track">
+                    <div className="lav-progress-fill" style={{ width: (total ? (done.length / total * 100) : 0) + '%' }}></div>
+                  </div>
+
+                  {/* Giro completato */}
+                  {roundComplete && (
+                    <div className="lav-complete">
+                      <div className="big">Giro {clav.round} completato! 🎉</div>
+                      <p className="hint" style={{ margin: '6px 0 14px' }}>Tutti gli studenti sono passati alla lavagna.</p>
+                      <button className="btn" onClick={startNextRound} style={{ width: '100%' }}>
+                        Inizia giro {clav.round + 1}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Studente corrente da valutare */}
+                  {!roundComplete && currentStudent && (
+                    <div className="lav-current">
+                      <div className="lav-current-label">Alla lavagna</div>
+                      <div className="lav-current-id">{currentNum}</div>
+                      <div className="lav-outcomes">
+                        <button className="lav-out-btn plus" onClick={() => recordOutcome('plus')}>
+                          <span className="lav-out-big">+</span>
+                          <span className="lav-out-sub">Bene</span>
+                        </button>
+                        <button className="lav-out-btn minus" onClick={() => recordOutcome('minus')}>
+                          <span className="lav-out-big">–</span>
+                          <span className="lav-out-sub">Male</span>
+                        </button>
+                        <button className="lav-out-btn refused" onClick={() => recordOutcome('refused')}>
+                          <span className="lav-out-big">✕</span>
+                          <span className="lav-out-sub">Rifiuto</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Pesca a caso + lista di chi manca */}
+                  {!roundComplete && !currentStudent && (
+                    <>
+                      <button className="btn" onClick={pickRandom} style={{ width: '100%', marginBottom: '6px' }}>
+                        🎯 Pesca a caso ({pending.length})
+                      </button>
+
+                      <div className="lav-section-label">Oppure scegli tu — mancano {pending.length}</div>
+                      <div className="lav-pending-grid">
+                        {pending.map(s => {
+                          const num = cls.students.findIndex(x => x.uid === s.uid) + 1;
+                          return (
+                            <div 
+                              key={s.uid}
+                              className="lav-pending-pill"
+                              onClick={() => setCurrentId(s.uid)}
+                            >
+                              {num}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Chi ha già fatto questo giro */}
+                  {done.length > 0 && (
+                    <>
+                      <div className="lav-section-label">Già passati (giro {clav.round})</div>
+                      {done.map(uid => {
+                        const st = cls.students.find(s => s.uid === uid);
+                        const turn = lastTurnThisRound(uid);
+                        if (!st || !turn) return null;
+                        const num = cls.students.findIndex(s => s.uid === uid) + 1;
+                        return (
+                          <div key={uid} className="lav-done-row">
+                            <span className="lav-done-id">{num}</span>
+                            <span className={'out-chip ' + turn.outcome}>
+                              {OUTCOME_GLYPH[turn.outcome]} {OUTCOME_LABEL[turn.outcome]}
+                            </span>
+                            <span className="lav-done-date">{fmtDate(turn.date)}</span>
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
+
+                  {/* Storico completo + reset */}
+                  <button 
+                    className="reg-storico-btn"
+                    onClick={() => setShowHist(!showHist)}
+                    style={{ marginTop: '18px' }}
+                  >
+                    {showHist ? '▲ Nascondi storico completo' : '▼ Storico completo (tutti i giri)'}
+                  </button>
+
+                  {showHist && (
+                    <div style={{ marginTop: '10px' }}>
+                      {cls.students.map((s, idx) => {
+                        const turns = (clav.turns && clav.turns[s.uid]) || [];
+                        return (
+                          <div key={s.uid} className="lav-hist-row">
+                            <span className="lav-hist-id">{idx + 1}</span>
+                            <div className="lav-hist-marks">
+                              {turns.length === 0
+                                ? <span className="hint" style={{ margin: 0 }}>mai</span>
+                                : turns.map((t, i) => (
+                                    <span key={i} className={'hist-mark ' + t.outcome} title={fmtDate(t.date)}>
+                                      {OUTCOME_GLYPH[t.outcome]}
+                                    </span>
+                                  ))}
+                            </div>
+                            <span className="lav-hist-count">{turns.length} turni</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  <button className="btn ghost" onClick={resetLavagna} style={{ width: '100%', marginTop: '16px' }}>
+                    Azzera percorso lavagna
+                  </button>
                 </>
               )}
             </>
