@@ -393,6 +393,183 @@
     .stats b {
       font-weight: 700;
     }
+
+    /* REGISTRO */
+    .reg-student {
+      background: var(--paper2);
+      border: 1.5px solid var(--rule);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .reg-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .reg-id {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+    }
+    .reg-disc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+    }
+    .reg-disc + .reg-disc {
+      border-top: 1px solid var(--rule-soft);
+    }
+    .reg-disc-label {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--ink-soft);
+      min-width: 38px;
+      letter-spacing: 0.03em;
+    }
+    .reg-checks {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+    }
+    .reg-check {
+      position: relative;
+      flex: 1;
+      min-height: 44px;
+      border: 1.5px solid var(--rule);
+      border-radius: 9px;
+      background: var(--paper);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      transition: 0.12s;
+      user-select: none;
+    }
+    .reg-check .glyph {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ink-soft);
+    }
+    .reg-check .cdate {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      line-height: 1;
+    }
+    .reg-check .cbadge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 9px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reg-check.on {
+      background: #DCEBEA;
+      border-color: var(--teal);
+    }
+    .reg-check.on .glyph { color: var(--teal); }
+    .reg-check.on .cdate { color: var(--teal); }
+    .reg-check.nota .cbadge { background: var(--red); }
+    .reg-check.nota.on {
+      background: #F4DAD7;
+      border-color: var(--red);
+    }
+    .reg-check.nota.on .glyph { color: var(--red); }
+    .reg-check.nota.on .cdate { color: var(--red); }
+    .reg-storico-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 7px;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--ink-soft);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .reg-storico {
+      margin-top: 8px;
+      border-top: 1px solid var(--rule-soft);
+      padding-top: 8px;
+    }
+    .reg-storico-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 5px 0;
+      font-size: 13px;
+    }
+    .reg-storico-line .lab {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      font-size: 12px;
+      min-width: 78px;
+      color: var(--ink-soft);
+    }
+    .date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 7px;
+      background: #DCEBEA;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .date-pill.nota {
+      background: #F4DAD7;
+      color: var(--red);
+    }
+    .date-pill .x {
+      cursor: pointer;
+      font-weight: 700;
+      opacity: 0.7;
+    }
+    .reg-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+    .reg-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .reg-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      border: 1.5px solid var(--teal);
+      background: #DCEBEA;
+    }
+    .reg-dot.nota {
+      border-color: var(--red);
+      background: #F4DAD7;
+    }
   </style>
 </head>
 <body>
@@ -467,11 +644,18 @@
               >
                 Gruppi
               </button>
+              <button 
+                className={tab === 'registro' ? 'on' : ''}
+                onClick={() => setTab('registro')}
+              >
+                Registro
+              </button>
             </nav>
 
             {tab === 'classi' && <ClassiTab data={data} saveData={saveData} />}
             {tab === 'estrazione' && <EstrazioneTab data={data} saveData={saveData} />}
             {tab === 'gruppi' && <GruppiTab data={data} saveData={saveData} />}
+            {tab === 'registro' && <RegistroTab data={data} saveData={saveData} />}
           </main>
         </>
       );
@@ -873,6 +1057,196 @@
                       ))}
                     </div>
                   )}
+                </>
+              )}
+            </>
+          )}
+        </>
+      );
+    }
+
+    // REGISTRO TAB
+    const DISCIPLINE = ['mat', 'sci'];
+    const DISC_LABEL = { mat: 'MAT', sci: 'SCI' };
+    const SLOTS = ['c1', 'c2', 'nota'];
+    const SLOT_LABEL = { c1: 'Check 1', c2: 'Check 2', nota: 'Nota' };
+
+    const todayISO = () => {
+      const d = new Date();
+      return d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0');
+    };
+
+    const fmtDate = (iso) => {
+      const [y, m, d] = iso.split('-');
+      return d + '/' + m;
+    };
+
+    function RegistroTab({ data, saveData }) {
+      const [selectedClass, setSelectedClass] = useState(null);
+      const [openStorico, setOpenStorico] = useState({});
+
+      const classi = Object.values(data.classi);
+      const cls = classi.find(c => c.id === selectedClass);
+      const registro = data.registro || {};
+
+      const getStudentReg = (studentId) => {
+        const classReg = registro[selectedClass] || {};
+        return classReg[studentId] || {};
+      };
+
+      const getSlot = (studentId, disc, slot) => {
+        const sr = getStudentReg(studentId);
+        return (sr[disc] && sr[disc][slot]) ? sr[disc][slot] : [];
+      };
+
+      // Toggle: aggiunge oggi se assente, rimuove oggi se già presente
+      const toggleToday = (studentId, disc, slot) => {
+        const today = todayISO();
+        const newData = { ...data };
+        if (!newData.registro) newData.registro = {};
+        if (!newData.registro[selectedClass]) newData.registro[selectedClass] = {};
+        if (!newData.registro[selectedClass][studentId]) newData.registro[selectedClass][studentId] = {};
+        if (!newData.registro[selectedClass][studentId][disc]) newData.registro[selectedClass][studentId][disc] = {};
+        const arr = newData.registro[selectedClass][studentId][disc][slot] || [];
+        const idx = arr.indexOf(today);
+        if (idx >= 0) {
+          arr.splice(idx, 1);
+        } else {
+          arr.push(today);
+          arr.sort();
+        }
+        newData.registro[selectedClass][studentId][disc][slot] = arr;
+        saveData(newData);
+      };
+
+      const removeDate = (studentId, disc, slot, iso) => {
+        const newData = { ...data };
+        const arr = newData.registro[selectedClass][studentId][disc][slot];
+        const idx = arr.indexOf(iso);
+        if (idx >= 0) arr.splice(idx, 1);
+        saveData(newData);
+      };
+
+      const isTodayOn = (studentId, disc, slot) => {
+        return getSlot(studentId, disc, slot).includes(todayISO());
+      };
+
+      const toggleStorico = (studentId) => {
+        setOpenStorico(prev => ({ ...prev, [studentId]: !prev[studentId] }));
+      };
+
+      const hasAnyDates = (studentId) => {
+        return DISCIPLINE.some(disc =>
+          SLOTS.some(slot => getSlot(studentId, disc, slot).length > 0)
+        );
+      };
+
+      return (
+        <>
+          <h2 className="sec">Registro</h2>
+          <p className="hint">Tocca un check per segnare oggi. Toccalo di nuovo per togliere. Il terzo check (rosso) è la nota.</p>
+
+          {classi.length === 0 ? (
+            <div className="empty">
+              <p>Crea una classe prima</p>
+            </div>
+          ) : (
+            <>
+              <div className="field">
+                <label>Seleziona classe</label>
+                <select 
+                  value={selectedClass || ''}
+                  onChange={(e) => {
+                    setSelectedClass(e.target.value);
+                    setOpenStorico({});
+                  }}
+                >
+                  <option value="">— scegli —</option>
+                  {classi.map(c => (
+                    <option key={c.id} value={c.id}>{c.nome} ({c.size} studenti)</option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedClass && cls && (
+                <>
+                  <div className="reg-legend">
+                    <span><span className="reg-dot"></span> Check 1 · 2 (materiale/compiti)</span>
+                    <span><span className="reg-dot nota"></span> Nota sul registro</span>
+                  </div>
+
+                  {cls.students.map(student => (
+                    <div key={student.id} className="reg-student">
+                      <div className="reg-head">
+                        <span className="reg-id">{student.id}</span>
+                        {student.bes && <span className="chip bes">BES</span>}
+                      </div>
+
+                      {DISCIPLINE.map(disc => (
+                        <div key={disc} className="reg-disc">
+                          <span className="reg-disc-label">{DISC_LABEL[disc]}</span>
+                          <div className="reg-checks">
+                            {SLOTS.map(slot => {
+                              const dates = getSlot(student.id, disc, slot);
+                              const on = isTodayOn(student.id, disc, slot);
+                              const isNota = slot === 'nota';
+                              const lastDate = dates.length > 0 ? fmtDate(dates[dates.length - 1]) : null;
+                              return (
+                                <div
+                                  key={slot}
+                                  className={`reg-check ${isNota ? 'nota' : ''} ${on ? 'on' : ''}`}
+                                  onClick={() => toggleToday(student.id, disc, slot)}
+                                >
+                                  <span className="glyph">{isNota ? '!' : (dates.length > 0 ? '✓' : '·')}</span>
+                                  {lastDate && <span className="cdate">{lastDate}</span>}
+                                  {dates.length > 1 && <span className="cbadge">{dates.length}</span>}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+
+                      {hasAnyDates(student.id) && (
+                        <>
+                          <button 
+                            className="reg-storico-btn"
+                            onClick={() => toggleStorico(student.id)}
+                          >
+                            {openStorico[student.id] ? '▲ Nascondi storico' : '▼ Storico date'}
+                          </button>
+
+                          {openStorico[student.id] && (
+                            <div className="reg-storico">
+                              {DISCIPLINE.map(disc =>
+                                SLOTS.map(slot => {
+                                  const dates = getSlot(student.id, disc, slot);
+                                  if (dates.length === 0) return null;
+                                  const isNota = slot === 'nota';
+                                  return (
+                                    <div key={disc + slot} className="reg-storico-line">
+                                      <span className="lab">{DISC_LABEL[disc]} · {SLOT_LABEL[slot]}</span>
+                                      {dates.map(iso => (
+                                        <span key={iso} className={`date-pill ${isNota ? 'nota' : ''}`}>
+                                          {fmtDate(iso)}
+                                          <span 
+                                            className="x"
+                                            onClick={() => removeDate(student.id, disc, slot, iso)}
+                                          >×</span>
+                                        </span>
+                                      ))}
+                                    </div>
+                                  );
+                                })
+                              )}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  ))}
                 </>
               )}
             </>
